@@ -35,10 +35,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BudgetEntry.cs" />
-    <Compile Include="DateRule.cs" />
-    <Compile Include="FixedDayDateRule.cs" />
     <Compile Include="Money.cs" />
     <Compile Include="Transaction.cs" />
     <Compile Include="Transactions.cs" />
+    <Compile Include="Month.cs" />
   </ItemGroup>
 </Project>

@@ -8,22 +8,12 @@ namespace PlanAhead {
         April,
         May,
         June,
-        Juli,
+        July,
         August,
         September,
         October,
         November,
         December
-    }
-
-    public class DateRule {
-        public DateRule() {
-        }
-
-        public virtual int? getDateForMonth(Month month, int year) {
-            return null;
-        }
-
     }
 }
 
