@@ -34,8 +34,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BudgetEntryTests.cs" />
     <Compile Include="MoneyTests.cs" />
+    <Compile Include="NegativeBudgetEntryTests.cs" />
+    <Compile Include="PositiveBudgetEntryTests.cs" />
+    <Compile Include="BudgetEntryTestsBase.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
