@@ -38,8 +38,8 @@
     <Compile Include="NegativeBudgetEntryTests.cs" />
     <Compile Include="PositiveBudgetEntryTests.cs" />
     <Compile Include="BudgetEntryTestsBase.cs" />
-    <Compile Include="TransactionTests.cs" />
-    <Compile Include="TransactionsTests.cs" />
+    <Compile Include="BudgetEntryTransactionTests.cs" />
+    <Compile Include="BudgetEntryTransactionsTests.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>

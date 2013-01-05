@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 namespace PlanAhead {
-    public class Transactions: List<Transaction> {
+    public class BudgetEntryTransactions: List<BudgetEntryTransaction> {
 
         public Money GetValue() {
             Money result = new Money(0);           

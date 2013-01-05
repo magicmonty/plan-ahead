@@ -3,7 +3,7 @@ using NUnit.Framework;
 namespace PlanAhead {
 
     [TestFixture]
-    public class TransactionTests {
+    public class BudgetEntryTransactionTests {
 
         [Test]
         public void AppliedWithdrawTransactionsShouldSubtractMoney() {

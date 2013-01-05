@@ -32,18 +32,18 @@ namespace PlanAhead {
 
 
         protected abstract void CreateBudgetEntry();
-        protected abstract Transaction CreateTransaction(int day, Money value);
+        protected abstract BudgetEntryTransaction CreateTransaction(int day, Money value);
         protected abstract void AssertType(BudgetEntry entry);
 
         private void AssertNextMonthsValueIs(Money value) {
             Assert.AreEqual(value, budgetEntry.GetNextMonthsValue());
         }
 
-        private Transaction CreateSmallTestTransaction() {
+        private BudgetEntryTransaction CreateSmallTestTransaction() {
             return CreateTransaction(1, TEST_VALUE_SMALL);
         }
 
-        private Transaction CreateTestTransaction() {
+        private BudgetEntryTransaction CreateTestTransaction() {
             return CreateTransaction(1, TEST_VALUE);
         }
 

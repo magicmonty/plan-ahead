@@ -1,20 +1,20 @@
 namespace PlanAhead {
 
-    public abstract class Transaction {
+    public abstract class BudgetEntryTransaction {
         public readonly Money Value;
         public readonly int Day;
 
-        public Transaction(int day, Money value) {
+        public BudgetEntryTransaction(int day, Money value) {
             this.Value = value.Clone();
             this.Day = day;
         }
 
-        public abstract Transaction Clone();
+        public abstract BudgetEntryTransaction Clone();
 
         public abstract Money apply(Money value);
     }
 
-    public class WithdrawTransaction: Transaction {
+    public class WithdrawTransaction: BudgetEntryTransaction {
 
         public WithdrawTransaction(int day, Money value): base(day, value) {
         }
@@ -23,12 +23,12 @@ namespace PlanAhead {
             return value - this.Value;
         }
 
-        public override Transaction Clone() {
+        public override BudgetEntryTransaction Clone() {
             return new WithdrawTransaction(this.Day, this.Value);
         }
     }
 
-    public class DepositTransaction: Transaction {
+    public class DepositTransaction: BudgetEntryTransaction {
         public DepositTransaction(int day, Money value): base(day, value) {
         }
 
@@ -36,7 +36,7 @@ namespace PlanAhead {
             return value + this.Value;
         }
 
-        public override Transaction Clone() {
+        public override BudgetEntryTransaction Clone() {
             return new DepositTransaction(this.Day, this.Value);
         }
     }

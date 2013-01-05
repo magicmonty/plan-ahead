@@ -36,8 +36,8 @@
   <ItemGroup>
     <Compile Include="BudgetEntry.cs" />
     <Compile Include="Money.cs" />
-    <Compile Include="Transaction.cs" />
-    <Compile Include="Transactions.cs" />
     <Compile Include="Month.cs" />
+    <Compile Include="BudgetEntryTransactions.cs" />
+    <Compile Include="BudgetEntryTransaction.cs" />
   </ItemGroup>
 </Project>

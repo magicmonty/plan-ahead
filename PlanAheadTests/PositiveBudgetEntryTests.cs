@@ -11,7 +11,7 @@ namespace PlanAhead {
             budgetEntry = new PositiveBudgetEntry(name, month, year, budget);
         }
 
-        protected override Transaction CreateTransaction(int day, Money value) {
+        protected override BudgetEntryTransaction CreateTransaction(int day, Money value) {
             return new DepositTransaction(day, value);
         }
 

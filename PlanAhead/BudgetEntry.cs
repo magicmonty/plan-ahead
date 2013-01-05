@@ -11,7 +11,7 @@ namespace PlanAhead {
         public readonly Money Budget;
         public readonly bool IsClosed;
 
-        private Transactions transactions;
+        private BudgetEntryTransactions transactions;
 
         public BudgetEntry(string name, Month month, int year, Money budget) {
             this.Name = name;
@@ -20,17 +20,17 @@ namespace PlanAhead {
             this.Budget = budget.Clone();
             this.IsClosed = false;
 
-            this.transactions = new Transactions();
+            this.transactions = new BudgetEntryTransactions();
         }
 
-        protected BudgetEntry(string name, Month month, int year, Money budget, bool isClosed, Transactions transactions): this(name, month, year, budget) {
-            foreach (Transaction transaction in transactions) {
+        protected BudgetEntry(string name, Month month, int year, Money budget, bool isClosed, BudgetEntryTransactions transactions): this(name, month, year, budget) {
+            foreach (BudgetEntryTransaction transaction in transactions) {
                 this.transactions.Add(transaction.Clone());
             }
             this.IsClosed = isClosed;
         }
 
-        protected abstract BudgetEntry CreateNewBudgetEntry(string name, Month month, int year, Money budget, bool isClosed, Transactions transactions);
+        protected abstract BudgetEntry CreateNewBudgetEntry(string name, Month month, int year, Money budget, bool isClosed, BudgetEntryTransactions transactions);
 
         private BudgetEntry CreateNewBudgetEntry(string name, Month month, int year, Money budget) {
             return this.CreateNewBudgetEntry(name, month, year, budget, this.IsClosed, this.transactions);
@@ -48,9 +48,9 @@ namespace PlanAhead {
             return Budget.Clone();
         }
 
-        public BudgetEntry AddTransaction(Transaction transaction) {
+        public BudgetEntry AddTransaction(BudgetEntryTransaction transaction) {
             if (!IsClosed) {
-                Transactions newTransactions = new Transactions();
+                BudgetEntryTransactions newTransactions = new BudgetEntryTransactions();
                 newTransactions.AddRange(this.transactions);
                 newTransactions.Add(transaction);
                 return CreateNewBudgetEntry(this.Name, this.Month, this.Year, this.Budget, this.IsClosed, newTransactions);
@@ -72,14 +72,14 @@ namespace PlanAhead {
         public PositiveBudgetEntry(string name, Month month, int year, Money budget): base(name, month, year, budget) {
         }
 
-        protected PositiveBudgetEntry(string name, Month month, int year, Money budget, bool isClosed, Transactions transactions): base(name, month, year, budget, isClosed, transactions) {
+        protected PositiveBudgetEntry(string name, Month month, int year, Money budget, bool isClosed, BudgetEntryTransactions transactions): base(name, month, year, budget, isClosed, transactions) {
         }
 
         protected override bool IsValueOverBudget(Money value) {
             return value >= Budget;
         }
 
-        protected override BudgetEntry CreateNewBudgetEntry(string name, PlanAhead.Month month, int year, Money budget, bool isClosed, Transactions transactions) {
+        protected override BudgetEntry CreateNewBudgetEntry(string name, PlanAhead.Month month, int year, Money budget, bool isClosed, BudgetEntryTransactions transactions) {
             return new PositiveBudgetEntry(name, month, year, budget, isClosed, transactions);
         }
 
@@ -89,14 +89,14 @@ namespace PlanAhead {
         public NegativeBudgetEntry(string name, Month month, int year, Money budget): base(name, month, year, budget) {
         }
 
-        protected NegativeBudgetEntry(string name, Month month, int year, Money budget, bool isClosed, Transactions transactions): base(name, month, year, budget, isClosed, transactions) {
+        protected NegativeBudgetEntry(string name, Month month, int year, Money budget, bool isClosed, BudgetEntryTransactions transactions): base(name, month, year, budget, isClosed, transactions) {
         }
 
         protected override bool IsValueOverBudget(Money value) {
             return value <= Budget;
         }
 
-        protected override BudgetEntry CreateNewBudgetEntry(string name, PlanAhead.Month month, int year, Money budget, bool isClosed, Transactions transactions) {
+        protected override BudgetEntry CreateNewBudgetEntry(string name, PlanAhead.Month month, int year, Money budget, bool isClosed, BudgetEntryTransactions transactions) {
             return new NegativeBudgetEntry(name, month, year, budget, isClosed, transactions);
         }
 
