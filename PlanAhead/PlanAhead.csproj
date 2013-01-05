@@ -39,5 +39,6 @@
     <Compile Include="Month.cs" />
     <Compile Include="BudgetEntryTransactions.cs" />
     <Compile Include="BudgetEntryTransaction.cs" />
+    <Compile Include="MonthlyBudgetEntries.cs" />
   </ItemGroup>
 </Project>

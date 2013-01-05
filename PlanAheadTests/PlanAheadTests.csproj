@@ -43,7 +43,6 @@
     <Compile Include="BudgetEntryTransactionTests.cs" />
     <Compile Include="BudgetEntryTransactionsTests.cs" />
     <Compile Include="MonthlyBudgetEntriesTests.cs" />
-    <Compile Include="MonthlyBudgetEntries.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
