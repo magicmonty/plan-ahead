@@ -26,7 +26,7 @@ namespace PlanAhead {
             transactions.Add(new DepositTransaction(1, new Money(20)));
             transactions.Add(new DepositTransaction(1, new Money(38)));
 
-            Assert.AreEqual(new Money(100), transactions.GetValue());
+            Assert.AreEqual(new Money(42 + 20 + 38), transactions.GetValue());
         }
 
         [Test]
@@ -44,7 +44,7 @@ namespace PlanAhead {
             transactions.Add(new WithdrawTransaction(1, new Money(20)));
             transactions.Add(new WithdrawTransaction(1, new Money(38)));
 
-            Assert.AreEqual(new Money(-100), transactions.GetValue());
+            Assert.AreEqual(new Money(-42 - 20 - 38), transactions.GetValue());
         }
 
         [Test]
@@ -54,7 +54,7 @@ namespace PlanAhead {
             transactions.Add(new DepositTransaction(1, new Money(20)));
             transactions.Add(new WithdrawTransaction(1, new Money(38)));
 
-            Assert.AreEqual(new Money(62 - 38), transactions.GetValue());
+            Assert.AreEqual(new Money(42 + 20 - 38), transactions.GetValue());
         }
 
     }
