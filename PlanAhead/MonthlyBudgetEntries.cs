@@ -1,11 +1,10 @@
-using NUnit.Framework;
 using System.Collections.Generic;
 using System;
 using System.Linq;
 
 namespace PlanAhead {
 
-    class BudgetEntryExistsAlreadyException: Exception {
+    public class BudgetEntryExistsAlreadyException: Exception {
 
     }
 
