@@ -32,6 +32,8 @@
     <Reference Include="nunit.framework">
       <Private>False</Private>
     </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MoneyTests.cs" />
@@ -40,6 +42,8 @@
     <Compile Include="BudgetEntryTestsBase.cs" />
     <Compile Include="BudgetEntryTransactionTests.cs" />
     <Compile Include="BudgetEntryTransactionsTests.cs" />
+    <Compile Include="MonthlyBudgetEntriesTests.cs" />
+    <Compile Include="MonthlyBudgetEntries.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
