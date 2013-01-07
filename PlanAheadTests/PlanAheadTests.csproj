@@ -39,9 +39,9 @@
     <Compile Include="MoneyTests.cs" />
     <Compile Include="NegativeBudgetEntryTests.cs" />
     <Compile Include="PositiveBudgetEntryTests.cs" />
-    <Compile Include="BudgetEntryTransactionTests.cs" />
-    <Compile Include="BudgetEntryTransactionsTests.cs" />
     <Compile Include="BudgetCategoryTestsBase.cs" />
+    <Compile Include="FinancialTransactionTests.cs" />
+    <Compile Include="FinancialTransactionsTests.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>

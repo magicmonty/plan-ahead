@@ -28,18 +28,18 @@ namespace PlanAhead {
 
 
         protected abstract void CreateBudgetEntry();
-        protected abstract BudgetEntryTransaction CreateTransaction(DateTime date, Money value);
+        protected abstract FinancialTransaction CreateTransaction(DateTime date, Money value);
         protected abstract void AssertType(BudgetCategory entry);
 
-        private void AssertNextMonthsValueIs(Money value) {
-            Assert.AreEqual(value, budgetEntry.GetNextMonthsValue());
+        private void AssertValueIs(Money value) {
+            Assert.AreEqual(value, budgetEntry.GetValue((Month)DateTime.Today.Month, DateTime.Today.Year));
         }
 
-        private BudgetEntryTransaction CreateSmallTestTransaction() {
+        private FinancialTransaction CreateSmallTestTransaction() {
             return CreateTransaction(DateTime.Today, TEST_VALUE_SMALL);
         }
 
-        private BudgetEntryTransaction CreateTestTransaction() {
+        private FinancialTransaction CreateTestTransaction() {
             return CreateTransaction(DateTime.Today, TEST_VALUE);
         }
 
@@ -63,31 +63,31 @@ namespace PlanAhead {
 
         [Test]
         public void ABudgetEntryWithoutTransactionsShouldHaveANextMonthsValueOfItsBudgetValue() {
-            AssertNextMonthsValueIs(budget);
+            AssertValueIs(budget);
         }
 
         [Test]
         public void ABudgetEntryWithTransactionsOfLessThanBudgetShouldHaveANextMonthsValueOfItsBudgetValue() {
             AddSmallTransaction();
-            AssertNextMonthsValueIs(budget);
+            AssertValueIs(budget);
         }
 
         [Test]
         public void ABudgetEntryWithTransactionsOfSameThanBudgetShouldHaveANextMonthsValueOfTheSumOfItsTransactions() {
             AddTransaction();
-            AssertNextMonthsValueIs(TEST_VALUE * factor);
+            AssertValueIs(TEST_VALUE * factor);
         }
 
         [Test]
         public void ABudgetEntryWithTransactionsOfMoreThanBudgetShouldHaveANextMonthsValueOfTheSumOfItsTransactions() {
             AddThreeTransactions();
-            AssertNextMonthsValueIs(TEST_VALUE_TIMES_3);
+            AssertValueIs(TEST_VALUE_TIMES_3);
         }
 
         [Test]
         public void AClosedBudgetEntryWithoutTransactionsShouldHaveANextMonthsValueOf0() {
             CloseEntry();
-            AssertNextMonthsValueIs(Money.ZERO);
+            AssertValueIs(Money.ZERO);
         }
 
         [Test]
@@ -95,21 +95,21 @@ namespace PlanAhead {
             AddSmallTransaction();
             AddSmallTransaction();
             CloseEntry();
-            AssertNextMonthsValueIs(factor * 2 * TEST_VALUE_SMALL);
+            AssertValueIs(factor * 2 * TEST_VALUE_SMALL);
         }
 
         [Test]
         public void AClosedBudgetEntryWithTransactionsOfSameThanBudgetShouldHaveANextMonthsValueOfItsBudgetValue() {
             AddTransaction();
             CloseEntry();
-            AssertNextMonthsValueIs(factor * TEST_VALUE);
+            AssertValueIs(factor * TEST_VALUE);
         }
 
         [Test]
         public void AClosedBudgetEntryWithTransactionsOfMoreThanBudgetShouldHaveANextMonthsValueOfTheSumOfItsTransactions() {
             AddThreeTransactions();
             CloseEntry();
-            AssertNextMonthsValueIs(TEST_VALUE_TIMES_3);
+            AssertValueIs(TEST_VALUE_TIMES_3);
         }
 
         [Test]

@@ -4,7 +4,7 @@ using System;
 namespace PlanAhead {
 
     [TestFixture]
-    public class BudgetEntryTransactionTests {
+    public class FinancialTransactionTests {
 
         [Test]
         public void AppliedWithdrawTransactionsShouldSubtractMoney() {
