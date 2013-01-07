@@ -2,7 +2,7 @@ using System;
 using NUnit.Framework;
 
 namespace PlanAhead {
-    public abstract class BudgetEntryTestsBase {
+    public abstract class BudgetCategoryTestsBase {
 
         private readonly Money TEST_VALUE_SMALL = new Money(20);
         private readonly Money TEST_VALUE = new Money(42);
@@ -10,12 +10,10 @@ namespace PlanAhead {
         private readonly int factor;
 
         protected string name;
-        protected Month month;
-        protected int year;
         protected Money budget;
-        protected BudgetEntry budgetEntry;
+        protected BudgetCategory budgetEntry;
 
-        public BudgetEntryTestsBase(int factor) {
+        public BudgetCategoryTestsBase(int factor) {
             this.factor = factor;
             this.TEST_VALUE_TIMES_3 = TEST_VALUE * factor * 3;
         }
@@ -23,8 +21,6 @@ namespace PlanAhead {
         [SetUp]
         public void SetUp() {
             name = "TestEntry";
-            month = Month.January;
-            year = 2012;
             budget = TEST_VALUE * factor;
 
             CreateBudgetEntry();
@@ -32,19 +28,19 @@ namespace PlanAhead {
 
 
         protected abstract void CreateBudgetEntry();
-        protected abstract BudgetEntryTransaction CreateTransaction(int day, Money value);
-        protected abstract void AssertType(BudgetEntry entry);
+        protected abstract BudgetEntryTransaction CreateTransaction(DateTime date, Money value);
+        protected abstract void AssertType(BudgetCategory entry);
 
         private void AssertNextMonthsValueIs(Money value) {
             Assert.AreEqual(value, budgetEntry.GetNextMonthsValue());
         }
 
         private BudgetEntryTransaction CreateSmallTestTransaction() {
-            return CreateTransaction(1, TEST_VALUE_SMALL);
+            return CreateTransaction(DateTime.Today, TEST_VALUE_SMALL);
         }
 
         private BudgetEntryTransaction CreateTestTransaction() {
-            return CreateTransaction(1, TEST_VALUE);
+            return CreateTransaction(DateTime.Today, TEST_VALUE);
         }
 
         private void AddTransaction() {
@@ -120,17 +116,6 @@ namespace PlanAhead {
         public void AClosedBudgetEntryShouldNotAcceptAnyFurtherTransactions() {
             CloseEntry();
             Assert.Throws<BudgetIsClosedException>(() => budgetEntry.AddTransaction(CreateTestTransaction()));
-        }
-
-        [Test]
-        public void ABudgetEntryCanBeCopied() {
-            BudgetEntry newEntry = budgetEntry.CopyTo(budgetEntry.Month + 1, year);
-
-            AssertType(newEntry);
-            Assert.AreEqual(budget, newEntry.Budget);
-            Assert.AreEqual(name, newEntry.Name);
-            Assert.AreEqual(month + 1, newEntry.Month);
-            Assert.AreEqual(year, newEntry.Year);
         }
     }
 }

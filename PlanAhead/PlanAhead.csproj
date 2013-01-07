@@ -34,11 +34,10 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BudgetEntry.cs" />
     <Compile Include="Money.cs" />
     <Compile Include="Month.cs" />
     <Compile Include="BudgetEntryTransactions.cs" />
     <Compile Include="BudgetEntryTransaction.cs" />
-    <Compile Include="MonthlyBudgetEntries.cs" />
+    <Compile Include="BudgetCategory.cs" />
   </ItemGroup>
 </Project>

@@ -1,4 +1,5 @@
 using NUnit.Framework;
+using System;
 
 namespace PlanAhead {
 
@@ -14,7 +15,7 @@ namespace PlanAhead {
         [Test]
         public void ATransactionsContainerWithASingleDepositTransactionShouldReturnTheValueOfTheTransaction() {
             var transactions = new BudgetEntryTransactions();
-            var transaction = new DepositTransaction(1, new Money(42));
+            var transaction = new DepositTransaction(DateTime.Today, new Money(42));
             transactions.Add(transaction);
             Assert.AreEqual(transaction.Value, transactions.GetValue());
         }
@@ -22,9 +23,9 @@ namespace PlanAhead {
         [Test]
         public void ATransactionsContainerWithMultipleDepositTransactionShouldReturnTheSumOfTheValuesOfTheTransactions() {
             var transactions = new BudgetEntryTransactions();
-            transactions.Add(new DepositTransaction(1, new Money(42)));
-            transactions.Add(new DepositTransaction(1, new Money(20)));
-            transactions.Add(new DepositTransaction(1, new Money(38)));
+            transactions.Add(new DepositTransaction(DateTime.Today, new Money(42)));
+            transactions.Add(new DepositTransaction(DateTime.Today, new Money(20)));
+            transactions.Add(new DepositTransaction(DateTime.Today, new Money(38)));
 
             Assert.AreEqual(new Money(42 + 20 + 38), transactions.GetValue());
         }
@@ -32,7 +33,7 @@ namespace PlanAhead {
         [Test]
         public void ATransactionsContainerWithASingleWithdrawTransactionsShouldReturnTheValueOfTheNegativeOfTheTransaction() {
             var transactions = new BudgetEntryTransactions();
-            var transaction = new WithdrawTransaction(1, new Money(42));
+            var transaction = new WithdrawTransaction(DateTime.Today, new Money(42));
             transactions.Add(transaction);
             Assert.AreEqual(transaction.Value * -1, transactions.GetValue());
         }
@@ -40,9 +41,9 @@ namespace PlanAhead {
         [Test]
         public void ATransactionsContainerWithMultipleWithdrawTransactionsShouldReturnTheNegativeOfTheSumOfTheValuesOfTheTransactions() {
             var transactions = new BudgetEntryTransactions();
-            transactions.Add(new WithdrawTransaction(1, new Money(42)));
-            transactions.Add(new WithdrawTransaction(1, new Money(20)));
-            transactions.Add(new WithdrawTransaction(1, new Money(38)));
+            transactions.Add(new WithdrawTransaction(DateTime.Today, new Money(42)));
+            transactions.Add(new WithdrawTransaction(DateTime.Today, new Money(20)));
+            transactions.Add(new WithdrawTransaction(DateTime.Today, new Money(38)));
 
             Assert.AreEqual(new Money(-42 - 20 - 38), transactions.GetValue());
         }
@@ -50,9 +51,9 @@ namespace PlanAhead {
         [Test]
         public void ATransactionsContainerWithDifferentTransactionsShouldReturnTheAppropriateSum() {
             var transactions = new BudgetEntryTransactions();
-            transactions.Add(new DepositTransaction(1, new Money(42)));
-            transactions.Add(new DepositTransaction(1, new Money(20)));
-            transactions.Add(new WithdrawTransaction(1, new Money(38)));
+            transactions.Add(new DepositTransaction(DateTime.Today, new Money(42)));
+            transactions.Add(new DepositTransaction(DateTime.Today, new Money(20)));
+            transactions.Add(new WithdrawTransaction(DateTime.Today, new Money(38)));
 
             Assert.AreEqual(new Money(42 + 20 - 38), transactions.GetValue());
         }

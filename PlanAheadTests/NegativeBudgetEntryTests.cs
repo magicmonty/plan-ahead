@@ -1,21 +1,22 @@
 using NUnit.Framework;
+using System;
 
 namespace PlanAhead {
     [TestFixture]
-    public class NegativeBudgetEntryTests: BudgetEntryTestsBase {
+    public class NegativeBudgetEntryTests: BudgetCategoryTestsBase {
 
         public NegativeBudgetEntryTests(): base(-1) {
         }
 
         protected override void CreateBudgetEntry() {
-            budgetEntry = new NegativeBudgetEntry(name, month, year, budget);
+            budgetEntry = new NegativeBudgetEntry(name, budget);
         }
 
-        protected override BudgetEntryTransaction CreateTransaction(int day, Money value) {
-            return new WithdrawTransaction(day, value);
+        protected override BudgetEntryTransaction CreateTransaction(DateTime date, Money value) {
+            return new WithdrawTransaction(date, value);
         }
 
-        protected override void AssertType(BudgetEntry entry) {
+        protected override void AssertType(BudgetCategory entry) {
             Assert.IsInstanceOf(typeof(NegativeBudgetEntry), entry);
         }
     }
