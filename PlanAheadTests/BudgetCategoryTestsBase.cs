@@ -22,14 +22,10 @@ namespace PlanAhead {
         public void SetUp() {
             name = "TestEntry";
             budget = TEST_VALUE * factor;
-
-            CreateBudgetEntry();
+            budgetEntry = new BudgetCategory(name, budget);
         }
 
-
-        protected abstract void CreateBudgetEntry();
         protected abstract FinancialTransaction CreateTransaction(DateTime date, Money value);
-        protected abstract void AssertType(BudgetCategory entry);
 
         private void AssertValueIs(Money value) {
             Assert.AreEqual(value, budgetEntry.GetValue((Month)DateTime.Today.Month, DateTime.Today.Year));

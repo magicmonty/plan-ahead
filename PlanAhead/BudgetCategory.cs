@@ -4,7 +4,7 @@ namespace PlanAhead {
     public class BudgetIsClosedException: Exception {
     }
 
-    public abstract class BudgetCategory {
+    public class BudgetCategory {
         public readonly string Name;
         public readonly Money Budget;
         public readonly bool IsClosed;
@@ -19,20 +19,23 @@ namespace PlanAhead {
             this.transactions = new FinancialTransactions();
         }
 
-        protected BudgetCategory(string name, Money budget, bool isClosed, FinancialTransactions transactions): this(name, budget) {
+        public BudgetCategory(string name, Money budget, bool isClosed, FinancialTransactions transactions): this(name, budget) {
             foreach (FinancialTransaction transaction in transactions) {
                 this.transactions.Add(transaction.Clone());
             }
             this.IsClosed = isClosed;
         }
 
-        protected abstract BudgetCategory CreateNewBudgetEntry(string name, Money budget, bool isClosed, FinancialTransactions transactions);
-
-        private BudgetCategory CreateNewBudgetEntry(string name, Money budget) {
-            return this.CreateNewBudgetEntry(name, budget, this.IsClosed, this.transactions);
+        private bool IsPositiveBudget() {
+            return this.Budget >= Money.ZERO;
         }
 
-        protected abstract bool IsValueOverBudget(Money value);
+        private bool IsValueOverBudget(Money value) {
+            if (IsPositiveBudget()) {
+                return value >= Budget;
+            }
+            return value <= Budget;
+        }
 
         public Money GetValue(Month month, int year) {
             var transactionsValue = this.transactions.GetValue(month, year);
@@ -49,48 +52,15 @@ namespace PlanAhead {
                 FinancialTransactions newTransactions = new FinancialTransactions();
                 newTransactions.AddRange(this.transactions);
                 newTransactions.Add(transaction);
-                return CreateNewBudgetEntry(this.Name, this.Budget, this.IsClosed, newTransactions);
+                return new BudgetCategory(this.Name, this.Budget, this.IsClosed, newTransactions);
             } else {
                 throw new BudgetIsClosedException();
             }
         }
 
         public BudgetCategory Close() {
-            return CreateNewBudgetEntry(this.Name, this.Budget, true, this.transactions);
+            return new BudgetCategory(this.Name, this.Budget, true, this.transactions);
         }        
-    }
-
-    public class PositiveBudgetEntry: BudgetCategory {
-        public PositiveBudgetEntry(string name, Money budget): base(name, budget) {
-        }
-
-        protected PositiveBudgetEntry(string name, Money budget, bool isClosed, FinancialTransactions transactions): base(name, budget, isClosed, transactions) {
-        }
-
-        protected override bool IsValueOverBudget(Money value) {
-            return value >= Budget;
-        }
-
-        protected override BudgetCategory CreateNewBudgetEntry(string name, PlanAhead.Money budget, bool isClosed, FinancialTransactions transactions) {
-            return new PositiveBudgetEntry(name, budget, isClosed, transactions);
-        }
-
-    }
-
-    public class NegativeBudgetEntry: BudgetCategory {
-        public NegativeBudgetEntry(string name, Money budget): base(name, budget) {
-        }
-
-        protected NegativeBudgetEntry(string name, Money budget, bool isClosed, FinancialTransactions transactions): base(name, budget, isClosed, transactions) {
-        }
-
-        protected override bool IsValueOverBudget(Money value) {
-            return value <= Budget;
-        }
-
-        protected override BudgetCategory CreateNewBudgetEntry(string name, Money budget, bool isClosed, FinancialTransactions transactions) {
-            return new NegativeBudgetEntry(name, budget, isClosed, transactions);
-        }
     }
 }
 

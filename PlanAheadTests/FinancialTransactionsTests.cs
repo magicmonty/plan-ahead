@@ -78,7 +78,7 @@ namespace PlanAhead {
         }
 
         [Test]
-        public void TestGetDateValueForSpecificMonthAndYear() {
+        public void TestGetValueForSpecificMonthAndYear() {
             deposit(TEST_DATE_JANUARY_2012, 42);
             deposit(TEST_DATE_JANUARY_2013, 20);
             deposit(TEST_DATE_FEBRUARY_2012, 38);
@@ -90,7 +90,7 @@ namespace PlanAhead {
         }
 
         [Test]
-        public void TestGetDateValueForSpecificYear() {
+        public void TestGetValueForSpecificYear() {
             deposit(TEST_DATE_JANUARY_2012, 42);
             deposit(TEST_DATE_JANUARY_2013, 20);
             deposit(TEST_DATE_FEBRUARY_2012, 38);
