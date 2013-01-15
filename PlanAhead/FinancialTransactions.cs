@@ -5,6 +5,14 @@ using System.Linq;
 namespace PlanAhead {
     public class FinancialTransactions: List<FinancialTransaction> {
 
+        public FinancialTransactions(): base() {
+
+        }
+
+        public FinancialTransactions(IEnumerable<FinancialTransaction> transactions):base(transactions) {
+
+        }
+
         private Money GetTotalOfTransactions(IEnumerable<FinancialTransaction> transactions) {
             Money result = Money.ZERO;
             foreach (var transaction in transactions) {
