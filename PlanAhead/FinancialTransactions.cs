@@ -27,17 +27,17 @@ namespace PlanAhead {
         }
 
         public Money GetValueOf(Month month, Year year) {
-            var transactions = this.Where(transaction => (transaction.Date.Year == year.Value && transaction.Date.Month == (int)month));
+            var transactions = this.Where(transaction => (transaction.Date.Year == year && transaction.Date.Month == month));
             return GetTotalOfTransactions(transactions);
         }
 
         public Money GetValueOf(Year year) {
-            var transactions = this.Where(transaction => (transaction.Date.Year == year.Value));
+            var transactions = this.Where(transaction => (transaction.Date.Year == year));
             return GetTotalOfTransactions(transactions);
         }
 
         public Money GetValueUntil(Month month, Year year) {
-            var transactions = this.Where(transaction => (transaction.Date.Year <= year.Value && transaction.Date.Month <= (int)month));
+            var transactions = this.Where(transaction => (transaction.Date.Year <= year && transaction.Date.Month <= month));
             return GetTotalOfTransactions(transactions);
         }
     }

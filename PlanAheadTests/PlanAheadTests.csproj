@@ -45,6 +45,7 @@
     <Compile Include="AccountTests.cs" />
     <Compile Include="Account.cs" />
     <Compile Include="YearTests.cs" />
+    <Compile Include="MonthTests.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
