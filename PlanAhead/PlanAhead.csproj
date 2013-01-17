@@ -39,5 +39,6 @@
     <Compile Include="FinancialTransaction.cs" />
     <Compile Include="FinancialTransactions.cs" />
     <Compile Include="BudgetCategory.cs" />
+    <Compile Include="Year.cs" />
   </ItemGroup>
 </Project>
