@@ -26,16 +26,20 @@ namespace PlanAhead {
             return GetTotalOfTransactions(this);
         }
 
-        public Money GetValue(Month month, int year) {
+        public Money GetValueOf(Month month, int year) {
             var transactions = this.Where(transaction => (transaction.Date.Year == year && transaction.Date.Month == (int)month));
             return GetTotalOfTransactions(transactions);
         }
 
-        public Money GetValue(int year) {
+        public Money GetValueOf(int year) {
             var transactions = this.Where(transaction => (transaction.Date.Year == year));
             return GetTotalOfTransactions(transactions);
         }
 
+        public Money GetValueUntil(Month month, int year) {
+            var transactions = this.Where(transaction => (transaction.Date.Year <= year && transaction.Date.Month <= (int)month));
+            return GetTotalOfTransactions(transactions);
+        }
     }
 }
 

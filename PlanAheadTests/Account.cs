@@ -4,10 +4,6 @@ namespace PlanAhead {
     public class Account {
         private FinancialTransactions transactions;
 
-        public Money GetBalance() {
-            return transactions.GetTotal();
-        }
-
         public Account(DateTime initialDate, Money initialBalance) {
             this.transactions = new FinancialTransactions();
             if (initialBalance < Money.ZERO) {
@@ -33,6 +29,18 @@ namespace PlanAhead {
             return new Account(this.transactions);
         }
 
+        public Money GetValueOf(Month month, int year) {
+            return transactions.GetValueOf(month, year);
+        }
+
+        public Money GetBalance() {
+            return transactions.GetTotal();
+        }
+        
+        public Money GetBalance(Month month, int year) {
+            return transactions.GetValueUntil(month, year);
+        }
+        
         public Account Withdraw(DateTime date, Money value) {
             return AddTransaction<WithdrawTransaction>(date, value);
         }

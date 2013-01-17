@@ -38,7 +38,7 @@ namespace PlanAhead {
         }
 
         public Money GetValue(Month month, int year) {
-            var transactionsValue = this.transactions.GetValue(month, year);
+            var transactionsValue = this.transactions.GetValueOf(month, year);
 
             if (IsClosed || IsValueOverBudget(transactionsValue)) {
                 return transactionsValue;
