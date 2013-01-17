@@ -10,8 +10,20 @@ namespace PlanAhead {
         private readonly Year year4 = 2013;
 
         [Test]
+        public void AYearShouldBeConvertedImplicitelyToAnInt() {
+            int year = new Year(2012);
+            Assert.That(2012 == year);
+        }
+        
+        [Test]
+        public void AnIntShouldBeConvertedImplicitelyToAYear() {
+            Year year = 2012;
+            Assert.That(2012 == year.Value);
+        }
+
+        [Test]
         public void YearShouldHaveAValue() {
-            Assert.That(2012, Is.EqualTo(year1.Value));
+            Assert.That(year1.Value, Is.EqualTo(2012));
         }
 
         [Test]
@@ -49,6 +61,29 @@ namespace PlanAhead {
         public void YearShouldBeComparableByLessOrEqualOperator() {
             Assert.That(year1 <= year3);
             Assert.That(year3 <= year4);
+        }
+
+        [Test]
+        public void YearShouldBeComparableWithInt() {
+            Assert.That(year1.Equals(2012));
+        }
+
+        [Test]
+        public void YearShouldBeComparableWithIntByOperator() {
+            Assert.That(year1 == 2012);
+            Assert.That(year1 != 2013);
+            Assert.That(year1 < 2013);
+            Assert.That(year1 > 2010);
+            Assert.That(year1 <= 2013);
+            Assert.That(year1 <= 2012);
+            Assert.That(year1 >= 2010);
+            Assert.That(year1 >= 2012);
+        }
+
+        [Test]
+        public void ToStringShouldOutputTheYear() {
+            Assert.That(year1.ToString(), Is.EqualTo("2012"));
+            Assert.That(year3.ToString(), Is.EqualTo("2013"));
         }
     }
 }

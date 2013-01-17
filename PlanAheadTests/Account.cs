@@ -29,7 +29,7 @@ namespace PlanAhead {
             return new Account(this.transactions);
         }
 
-        public Money GetValueOf(Month month, int year) {
+        public Money GetValueOf(Month month, Year year) {
             return transactions.GetValueOf(month, year);
         }
 
@@ -37,7 +37,7 @@ namespace PlanAhead {
             return transactions.GetTotal();
         }
         
-        public Money GetBalance(Month month, int year) {
+        public Money GetBalance(Month month, Year year) {
             return transactions.GetValueUntil(month, year);
         }
         
